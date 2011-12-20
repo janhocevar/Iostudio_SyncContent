@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <modules>
+    <Iostudio_SyncContent>
+      <version>0.1.0</version>
+    </Iostudio_SyncContent>
+  </modules>
+  <global>
+    <helpers>
+      <synccontent>
+        <class>Iostudio_SyncContent_Helper</class>
+      </synccontent>
+    </helpers>
+  </global>
+  <adminhtml>
+    <acl>
+      <resources>
+        <admin>
+          <children>
+            <system>
+              <children>
+                <config>
+                  <children>
+                    <synccontent>
+                      <title>ioStudio SyncContent Options Section</title>
+                    </synccontent>
+                  </children>
+                </config>
+              </children>
+            </system>
+          </children>
+        </admin>
+      </resources>
+    </acl>
+  </adminhtml>
+</config>

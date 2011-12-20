@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <tabs>
+    <iostudio_tab translate="label" module="synccontent">
+      <label>ioStudio</label>
+      <sort_order>9999</sort_order>
+    </iostudio_tab>
+  </tabs>
+  <sections>
+    <synccontent translate="label" module="synccontent">
+      <label>SyncContent Options</label>
+      <tab>iostudio_tab</tab>
+      <frontend_type>text</frontend_type>
+      <sort_order>9999</sort_order>
+      <show_in_default>1</show_in_default>
+      <show_in_website>1</show_in_website>
+      <show_in_store>1</show_in_store>
+      <groups>
+        <staging translate="label">
+          <label>Staging Server</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>1</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <fields>
+            <host>
+              <label>Host</label>
+              <comment>IP address or domain name (ie staging.example.com)</comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>1</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </host>
+            <username>
+              <label>Username</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>2</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </username>
+            <password>
+              <label>Password</label>
+              <frontend_type>password</frontend_type>
+              <sort_order>3</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </password>
+            <port>
+              <label>Port</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>4</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </port>
+            <dir>
+              <label>Directory</label>
+              <comment>Directory where the install is located (ie: /var/www/mystore)</comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>5</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </dir>
+            <content>
+              <label>Content</label>
+              <comment>List each directoy you want to sync on a new line (ie: media/)</comment>
+              <frontend_type>textarea</frontend_type>
+              <sort_order>6</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </content>
+          </fields>
+        </staging>
+      </groups>
+    </synccontent>
+  </sections>
+</config>
