@@ -12,6 +12,24 @@
       </synccontent>
     </helpers>
   </global>
+  <default>
+    <synccontent>
+      <staging>
+        <port>22</port>
+        <!--
+        /**
+         * v = verbose
+         * z = enable compression
+         * r = recursive
+         * a = archive mode
+         * C = ignore files in the same way CVS does
+         * progress = display progress
+         */
+        -->
+        <rsync_options>-avzCr --progress --exclude=app/etc/local.xml --exclude=var/*</rsync_options>
+      </staging>
+    </synccontent>
+  </default>
   <adminhtml>
     <acl>
       <resources>
