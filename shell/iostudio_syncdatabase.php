@@ -38,12 +38,14 @@ class Iostudio_Shell_SyncDatabase extends Iostudio_Shell_Abstract
         throw new Mage_Exception(sprintf('The "%s" server has not been setup',$syncTo));
       }
 
-      $cmd = strtr('./shell/iostudio_mysqldump.php --quite --no-confirmation | ssh -p%port% %username%@%host% \'cd %remote_dir%; ./shell/iostudio_mysqlload.php --backup --quite --no-confirmation\'', array(
-          '%port%'      => Mage::getStoreConfig(sprintf('synccontent/%s/port', $syncTo)),
-          '%username%'      => $username,
-          '%host%'          => $host,
-          '%remote_dir%'    => $remote_dir,
-        ));
+      $cmd = strtr('./shell/iostudio_mysqldump.php --quite --no-confirmation | ssh -p%port% %username%@%host% \'cd %remote_dir%; ./shell/iostudio_mysqlload.php --url %unsecure_base_url% --backup --quite --no-confirmation\'', array(
+        '%port%'              => Mage::getStoreConfig(sprintf('synccontent/%s/port', $syncTo)),
+        '%username%'          => $username,
+        '%host%'              => $host,
+        '%remote_dir%'        => $remote_dir,
+        '%secure_base_url%'   => Mage::getStoreConfig(sprintf('synccontent/%s/url', $syncTo)),
+        '%unsecure_base_url%' => Mage::getStoreConfig(sprintf('synccontent/%s/url', $syncTo)),
+      ));
       $this->log(sprintf("You are about to run:\n\t%s",$cmd));
       if ($this->confirm("Are you sure you want to sync content\nFROM this server TO another server?[y]",true))
       {
@@ -67,11 +69,12 @@ class Iostudio_Shell_SyncDatabase extends Iostudio_Shell_Abstract
         throw new Mage_Exception(sprintf('The "%s" server has not been setup',$syncFrom));
       }
 
-      $cmd = strtr('ssh -p%port% %username%@%host% \'cd %remote_dir%; ./shell/iostudio_mysqldump.php --quite --no-confirmation \' | ./shell/iostudio_mysqlload.php --backup --quite --no-confirmation',array(
-        '%port%'       => Mage::getStoreConfig(sprintf('synccontent/%s/port',$syncFrom)),
-        '%username%'   => $username,
-        '%host%'       => $host,
-        '%remote_dir%' => $remote_dir,
+      $cmd = strtr('ssh -p%port% %username%@%host% \'cd %remote_dir%; ./shell/iostudio_mysqldump.php --quite --no-confirmation \' | ./shell/iostudio_mysqlload.php --url %unsecure_base_url% --backup --quite --no-confirmation',array(
+        '%port%'              => Mage::getStoreConfig(sprintf('synccontent/%s/port',$syncFrom)),
+        '%username%'          => $username,
+        '%host%'              => $host,
+        '%remote_dir%'        => $remote_dir,
+        '%unsecure_base_url%' => Mage::getStoreConfig(sprintf('synccontent/%s/url', $syncFrom)),
       ));
 
       $this->log(sprintf("You are about to run:\n\t%s",$cmd));

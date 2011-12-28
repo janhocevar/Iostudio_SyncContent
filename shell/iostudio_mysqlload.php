@@ -60,6 +60,14 @@ class Iostudio_Shell_Mysqlload extends Iostudio_Shell_Abstract
       $config['dbname']
     );
     passthru($cmd,$return_var);
+
+    if ($this->getArg('url'))
+    {
+      /* @var $modelConfig Mage_Core_Model_Config */
+      $modelConfig = Mage::getModel('core/config');
+      $modelConfig->saveConfig('web/unsecure/base_url', $this->getArg('url'));
+      $modelConfig->saveConfig('web/secure/base_url', $this->getArg('url'));
+    }
   }
 
   /**
@@ -77,6 +85,10 @@ Usage:  php -f iostudio_mysqlload.php -- [options]
 
 Options
 =======
+
+  --url [http://www.example.com]
+      This makes sure that the fields in the database contain the new information
+      for your store.
 
   --backup
       Passing this option will take a database backup before importing. This file
