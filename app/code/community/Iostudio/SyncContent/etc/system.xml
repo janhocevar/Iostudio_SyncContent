@@ -69,6 +69,59 @@
             </rsync_options>
           </fields>
         </staging>
+        <production translate="label">
+          <label>Production Server</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>2</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <fields>
+            <host>
+              <label>Host</label>
+              <comment>IP address or domain name (ie example.com)</comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>1</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </host>
+            <username>
+              <label>Username</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>2</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </username>
+            <port>
+              <label>Port</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>4</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </port>
+            <dir>
+              <label>Directory</label>
+              <comment>Directory where the install is located (ie: /var/www/mystore)</comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>5</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </dir>
+            <rsync_options>
+              <label>rsync options</label>
+              <comment>Advanced usage only</comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>6</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </rsync_options>
+          </fields>
+        </production>
       </groups>
     </synccontent>
   </sections>
