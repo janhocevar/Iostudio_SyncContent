@@ -24,27 +24,15 @@ class Iostudio_Shell_SyncDatabase extends Iostudio_Shell_Abstract
   {
     if ($syncTo = $this->getArg('sync-to'))
     {
-      if (!in_array($syncTo, array('staging', 'production')))
-      {
-        throw new Mage_Exception(sprintf('The server "%s" is invalid', $syncTo));
-      }
+      $this->verify();
 
-      $username   = Mage::getStoreConfig(sprintf('synccontent/%s/username', $syncTo));
-      $remote_dir = Mage::getStoreConfig(sprintf('synccontent/%s/dir', $syncTo));
-      $host       = Mage::getStoreConfig(sprintf('synccontent/%s/host', $syncTo));
-
-      if (empty($remote_dir) || empty($username) || empty($host))
-      {
-        throw new Mage_Exception(sprintf('The "%s" server has not been setup',$syncTo));
-      }
-
-      $cmd = strtr('./shell/iostudio_mysqldump.php --quite --no-confirmation | ssh -p%port% %username%@%host% \'cd %remote_dir%; ./shell/iostudio_mysqlload.php --url %unsecure_base_url% --backup --quite --no-confirmation\'', array(
+      $cmd = strtr('./shell/iostudio_mysqldump.php --quite --no-confirmation | ssh -p%port% %username%@%host% \'cd %remote_dir%; ./shell/iostudio_mysqlload.php --unsecure-base-url %unsecure_base_url% --secure-base-url %secure_base_url% --backup --quite --no-confirmation\'', array(
         '%port%'              => Mage::getStoreConfig(sprintf('synccontent/%s/port', $syncTo)),
         '%username%'          => $username,
         '%host%'              => $host,
         '%remote_dir%'        => $remote_dir,
-        '%secure_base_url%'   => Mage::getStoreConfig(sprintf('synccontent/%s/url', $syncTo)),
-        '%unsecure_base_url%' => Mage::getStoreConfig(sprintf('synccontent/%s/url', $syncTo)),
+        '%secure_base_url%'   => Mage::getStoreConfig(sprintf('synccontent/%s/secure_base_url', $syncTo)),
+        '%unsecure_base_url%' => Mage::getStoreConfig(sprintf('synccontent/%s/unsecure_base_url', $syncTo)),
       ));
       $this->log(sprintf("You are about to run:\n\t%s",$cmd));
       if ($this->confirm("Are you sure you want to sync content\nFROM this server TO another server?[y]",true))
@@ -55,26 +43,15 @@ class Iostudio_Shell_SyncDatabase extends Iostudio_Shell_Abstract
     }
     elseif ($syncFrom = $this->getArg('sync-from'))
     {
-      if (!in_array($syncFrom, array('staging', 'production')))
-      {
-        throw new Mage_Exception(sprintf('The server "%s" is invalid', $syncFrom));
-      }
+      $this->verify();
 
-      $username   = Mage::getStoreConfig(sprintf('synccontent/%s/username', $syncFrom));
-      $remote_dir = Mage::getStoreConfig(sprintf('synccontent/%s/dir', $syncFrom));
-      $host       = Mage::getStoreConfig(sprintf('synccontent/%s/host', $syncFrom));
-
-      if (empty($remote_dir) || empty($username) || empty($host))
-      {
-        throw new Mage_Exception(sprintf('The "%s" server has not been setup',$syncFrom));
-      }
-
-      $cmd = strtr('ssh -p%port% %username%@%host% \'cd %remote_dir%; ./shell/iostudio_mysqldump.php --quite --no-confirmation \' | ./shell/iostudio_mysqlload.php --url %unsecure_base_url% --backup --quite --no-confirmation',array(
+      $cmd = strtr('ssh -p%port% %username%@%host% \'cd %remote_dir%; ./shell/iostudio_mysqldump.php --quite --no-confirmation \' | ./shell/iostudio_mysqlload.php --unsecure-base-url %unsecure_base_url% --secure-base-url %secure_base_url% --backup --quite --no-confirmation',array(
         '%port%'              => Mage::getStoreConfig(sprintf('synccontent/%s/port',$syncFrom)),
         '%username%'          => $username,
         '%host%'              => $host,
         '%remote_dir%'        => $remote_dir,
-        '%unsecure_base_url%' => Mage::getStoreConfig(sprintf('synccontent/%s/url', $syncFrom)),
+        '%secure_base_url%'   => Mage::getStoreConfig(sprintf('synccontent/%s/secure_base_url', $syncFrom)),
+        '%unsecure_base_url%' => Mage::getStoreConfig(sprintf('synccontent/%s/unsecure_base_url', $syncFrom)),
       ));
 
       $this->log(sprintf("You are about to run:\n\t%s",$cmd));
@@ -87,6 +64,32 @@ class Iostudio_Shell_SyncDatabase extends Iostudio_Shell_Abstract
     else
     {
       echo $this->usageHelp();
+    }
+  }
+
+  /**
+   * This function will verify that all the settings are filled out correctly
+   *
+   * @throw Mage_Exception
+   */
+  protected function verify()
+  {
+    $syncServer = $this->getArg('sync-to') ? $this->getArg('sync-to') : $this->getArg('sync-from');
+
+    if (!in_array($syncServer, array('staging','production')))
+    {
+      throw new Mage_Exception(sprintf('The server "%s" is invalid', $syncServer));
+    }
+
+    $username          = Mage::getStoreConfig(sprintf('synccontent/%s/username', $syncServer));
+    $remote_dir        = Mage::getStoreConfig(sprintf('synccontent/%s/dir', $syncServer));
+    $host              = Mage::getStoreConfig(sprintf('synccontent/%s/host', $syncServer));
+    $unsecure_base_url = Mage::getStoreConfig(sprintf('synccontent/%s/unsecure_base_url', $syncServer));
+    $secure_base_url   = Mage::getStoreConfig(sprintf('synccontent/%s/secure_base_url', $syncServer));
+
+    if (empty($remote_dir) || empty($username) || empty($host) || empty($unsecure_base_url) || empty($secure_base_url))
+    {
+      throw new Mage_Exception(sprintf('The "%s" server has not been setup correctly.',$syncServer));
     }
   }
 

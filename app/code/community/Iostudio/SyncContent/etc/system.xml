@@ -67,15 +67,24 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
             </rsync_options>
-            <url>
-              <label>URL</label>
+            <unsecure_base_url>
+              <label>Unsecure Base URL</label>
               <comment>Example: http://staging.example.com</comment>
               <frontend_type>text</frontend_type>
               <sort_order>7</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-            </url>
+            </unsecure_base_url>
+            <secure_base_url>
+              <label>Secure Base URL</label>
+              <comment>Example: https://staging.example.com</comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>8</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </secure_base_url>
           </fields>
         </staging>
         <production translate="label">
@@ -129,15 +138,24 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
             </rsync_options>
-            <url>
-              <label>URL</label>
+            <unsecure_base_url>
+              <label>Unsecure Base URL</label>
               <comment>Example: http://example.com</comment>
               <frontend_type>text</frontend_type>
               <sort_order>7</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
-            </url>
+            </unsecure_base_url>
+            <secure_base_url>
+              <label>Secure Base URL</label>
+              <comment>Example: https://example.com</comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>8</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </secure_base_url>
           </fields>
         </production>
       </groups>

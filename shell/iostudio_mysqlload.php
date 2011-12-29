@@ -61,12 +61,18 @@ class Iostudio_Shell_Mysqlload extends Iostudio_Shell_Abstract
     );
     passthru($cmd,$return_var);
 
-    if ($this->getArg('url'))
+    if ($this->getArg('unsecure-base-url'))
     {
       /* @var $modelConfig Mage_Core_Model_Config */
       $modelConfig = Mage::getModel('core/config');
-      $modelConfig->saveConfig('web/unsecure/base_url', $this->getArg('url'));
-      $modelConfig->saveConfig('web/secure/base_url', $this->getArg('url'));
+      $modelConfig->saveConfig('web/unsecure/base_url', $this->getArg('unsecure-base-url'));
+    }
+
+    if ($this->getArg('secure-base-url'))
+    {
+      /* @var $modelConfig Mage_Core_Model_Config */
+      $modelConfig = Mage::getModel('core/config');
+      $modelConfig->saveConfig('web/secure/base_url', $this->getArg('secure-base-url'));
     }
   }
 
@@ -86,7 +92,11 @@ Usage:  php -f iostudio_mysqlload.php -- [options]
 Options
 =======
 
-  --url [http://www.example.com]
+  --unsecure-base-url [http://www.example.com]
+      This makes sure that the fields in the database contain the new information
+      for your store.
+
+  --secure-base-url [https://www.example.com]
       This makes sure that the fields in the database contain the new information
       for your store.
 

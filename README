@@ -4,6 +4,9 @@ ioStudio SyncContent Magento Extension (CE)
 This extension will allow you to sync content and databases with a dev, staging,
 and production servers.
 
+NOTE: If you are syncing multi store sites, then you will need to update the URLs
+for those stores manually.
+
 Requirements
 ------------
 
