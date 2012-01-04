@@ -96,3 +96,4 @@ skin/install/
 var/
 .htaccess
 .htaccess.sample
+app/etc/local.xml
