@@ -2,7 +2,7 @@
 <config>
   <modules>
     <Iostudio_SyncContent>
-      <version>0.1.0</version>
+      <version>0.1.1</version>
     </Iostudio_SyncContent>
   </modules>
   <global>
